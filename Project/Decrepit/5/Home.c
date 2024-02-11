@@ -10,30 +10,29 @@ void breakpoint(int x){
 int main() {
 
     int count;
-    int debug = 0;
-    int cmd = 0;
+    int debug = 1;
+    int cmd;
     int sys;
     char root[] = "C:\\Users\\JHWez\\OneDrive - ROCvA, ROCvF en VOvA\\Portfolio\\Project\\output";
-    char **entries = NULL;
-    int num_entries = 0;
-    char ccmd1[256];
-    char ccmd2[256];
+//    char file[];
     DIR *directory;
     struct dirent *entry;
 
-    breakpoint(debug);
-
     // Open the root directory
+        breakpoint(debug);
     directory = opendir(("%s", root));
     if (directory == NULL) {
         perror("Error opening directory");
         return 1;
     }
-
     breakpoint(debug);
 
     printf("Intro placeholder\n\n");
     printf("1 - exit program\n");
+
+
+    char **entries = NULL; // Array to store directory entries
+    int num_entries = 0;   // Number of entries in the array
 
     // Read directory entries and store them in the array
     while ((entry = readdir(directory)) != NULL) {
@@ -56,45 +55,58 @@ int main() {
     }
 
     // Print the directory entries stored in the array
+    printf("Directory entries:\n");
     for (int i = 0; i < num_entries; i++) {
-        if (strcmp(entries[i], ".") == 0 || strcmp(entries[i], "..") == 0){ continue; }
-        printf("%d - %s\n", i, entries[i]);
+        printf("%s\n", entries[i]);
+        // Free the memory allocated for each entry
+        free(entries[i]);
     }
+    // Free the memory allocated for the entries array
+    free(entries);
+
+
+
+rewinddir(directory);
+
+
+    while ((entry = readdir(directory)) != NULL) {
+
+    // Read and print each entry in the directory
+        for (count = 1; (entry = readdir(directory)) != NULL; count++) {
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0){ continue; }
+        printf("%d - %s\n", count, entry->d_name);
+        }
 
     breakpoint(debug);
-    //read and process choice of user
     printf("\noutro placeholder\n");
     scanf("%d", &cmd);
-    sprintf(ccmd1, "cd %s", root);
-    sprintf(ccmd2, "start \"\" \"%s\"", entries[cmd]);
-
     breakpoint(debug);
 
-    //exit program if needed
-    if (cmd <= 1){
-        free(entries);
-        exit(0);
-    }
+//    rewinddir(directory);
+//    for (count = 1; count > cmd; count++){
+//        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0){ continue; }
 
-    //write command lines into cmd
-    sys = system(ccmd1);
+ //   }
+
+
+
+    sys = system(("cd %s", root));
     if (sys == -1){
         perror("Error finding directory");
         return 1;
     }
-    sys = system(ccmd2);
+ //   sys = system(("start %s", file));
     if (sys == -1){
         perror("Error opening file");
         return 1;
     }
 
-    // Close the directory
-    free(entries);
-    closedir(directory);
 
+    // Close the directory
+    closedir(directory);
     breakpoint(debug);
     return 0;
-}
+}}
 
 
 
@@ -108,17 +120,4 @@ int main() {
 
 
 cannot open output file ... permission denied = terminate program in taskmanager
-
-
-
-rewinddir(directory);
-
-
-    while ((entry = readdir(directory)) != NULL) {
-
-    // Read and print each entry in the directory
-        for (count = 1; (entry = readdir(directory)) != NULL; count++) {
-            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0){ continue; }
-    //    printf("%d - %s\n", count, entry->d_name);
-        }
     */

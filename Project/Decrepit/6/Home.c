@@ -14,26 +14,27 @@ int main() {
     int cmd = 0;
     int sys;
     char root[] = "C:\\Users\\JHWez\\OneDrive - ROCvA, ROCvF en VOvA\\Portfolio\\Project\\output";
-    char **entries = NULL;
-    int num_entries = 0;
     char ccmd1[256];
     char ccmd2[256];
+
     DIR *directory;
     struct dirent *entry;
 
-    breakpoint(debug);
-
     // Open the root directory
+        breakpoint(debug);
     directory = opendir(("%s", root));
     if (directory == NULL) {
         perror("Error opening directory");
         return 1;
     }
-
     breakpoint(debug);
 
     printf("Intro placeholder\n\n");
     printf("1 - exit program\n");
+
+
+    char **entries = NULL; // Array to store directory entries
+    int num_entries = 0;   // Number of entries in the array
 
     // Read directory entries and store them in the array
     while ((entry = readdir(directory)) != NULL) {
@@ -59,24 +60,23 @@ int main() {
     for (int i = 0; i < num_entries; i++) {
         if (strcmp(entries[i], ".") == 0 || strcmp(entries[i], "..") == 0){ continue; }
         printf("%d - %s\n", i, entries[i]);
+        // Free the memory allocated for each entry
+  //      free(entries[i]);
     }
+    // Free the memory allocated for the entries array
+
+
+
 
     breakpoint(debug);
-    //read and process choice of user
+
     printf("\noutro placeholder\n");
     scanf("%d", &cmd);
     sprintf(ccmd1, "cd %s", root);
     sprintf(ccmd2, "start \"\" \"%s\"", entries[cmd]);
-
     breakpoint(debug);
+    printf ("%s", ccmd2);
 
-    //exit program if needed
-    if (cmd <= 1){
-        free(entries);
-        exit(0);
-    }
-
-    //write command lines into cmd
     sys = system(ccmd1);
     if (sys == -1){
         perror("Error finding directory");
@@ -88,10 +88,10 @@ int main() {
         return 1;
     }
 
+
     // Close the directory
     free(entries);
     closedir(directory);
-
     breakpoint(debug);
     return 0;
 }
