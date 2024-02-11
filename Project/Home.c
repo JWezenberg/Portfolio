@@ -9,7 +9,6 @@ void breakpoint(int x){
 
 int main() {
 
-    int count;
     int debug = 0;
     int cmd = 0;
     int sys;
@@ -95,30 +94,3 @@ int main() {
     breakpoint(debug);
     return 0;
 }
-
-
-
-/* 
-
-
-
-   while ((entry = readdir(directory)) != NULL) {
-        printf("%s\n", entry->d_name);
-    }
-
-
-cannot open output file ... permission denied = terminate program in taskmanager
-
-
-
-rewinddir(directory);
-
-
-    while ((entry = readdir(directory)) != NULL) {
-
-    // Read and print each entry in the directory
-        for (count = 1; (entry = readdir(directory)) != NULL; count++) {
-            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0){ continue; }
-    //    printf("%d - %s\n", count, entry->d_name);
-        }
-    */
