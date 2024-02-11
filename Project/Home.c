@@ -32,7 +32,7 @@ int main() {
 
     breakpoint(debug);
 
-    printf("Intro placeholder\n\n");
+    printf("John Wezenberg's Projects\n\n");
     printf("1 - exit program\n");
 
     // Read directory entries and store them in the array
@@ -63,7 +63,7 @@ int main() {
 
     breakpoint(debug);
     //read and process choice of user
-    printf("\noutro placeholder\n");
+    printf("\nChoose which program to start\n");
     scanf("%d", &cmd);
     sprintf(ccmd1, "cd %s", root);
     sprintf(ccmd2, "start \"\" \"%s\"", entries[cmd]);
