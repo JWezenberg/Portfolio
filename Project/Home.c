@@ -19,5 +19,6 @@ int main() {
 
     // Close the directory
     closedir(directory);
+        while(1){}
     return 0;
 }
